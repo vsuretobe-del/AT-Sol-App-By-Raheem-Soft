@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,Arial,sans-serif; }
+  body { width:412px; height:892px; overflow:hidden; background:#F4F6FB; display:flex; flex-direction:column;
+    position:relative; }
+  .appbar { background:#1A237E; color:#fff; padding:16px; font-size:18px; font-weight:600; }
+  .body { flex:1; overflow:hidden; padding:12px; }
+  .row { display:flex; gap:10px; margin-bottom:12px; }
+  .fld { position:relative; flex:1; }
+  .fld label, .fld.st label { position:absolute; top:-8px; left:11px; background:#F4F6FB; padding:0 5px;
+    font-size:11.5px; color:#1A237E; font-weight:600; z-index:2; }
+  .fld .box { height:48px; background:#fff; border:1px solid #DADCE0; border-radius:10px;
+    display:flex; align-items:center; padding:0 13px; font-size:14.5px; color:#202124; gap:8px; }
+  .sec { font-size:12.5px; font-weight:700; color:#757575; letter-spacing:.8px;
+    padding:10px 4px 6px; text-transform:uppercase; }
+  .itemcard { background:#fff; border-radius:14px; padding:14px; box-shadow:0 1.5px 5px rgba(0,0,0,.12);
+    margin-bottom:12px; }
+  .itemhead { display:flex; gap:10px; align-items:center; }
+  .itemhead .fld { flex:1; }
+  .itemhead .rm { color:#D32F2F; font-size:22px; }
+  .sub { margin-top:10px; font-size:13.5px; }
+  .sub .lbl { position:relative; top:-1px; }
+  .qtyrow { display:flex; gap:8px; margin-top:10px; }
+  .qtyrow .fld .box { height:44px; font-size:13.5px; }
+  .addbtn { width:100%; height:46px; border:1.5px dashed #1A237E; border-radius:12px; background:none;
+    color:#1A237E; font-size:14.5px; font-weight:600; display:flex; align-items:center; justify-content:center;
+    gap:8px; }
+  .netcard { background:#fff; border-radius:14px; padding:16px; display:flex; justify-content:space-between;
+    align-items:center; box-shadow:0 1.5px 5px rgba(0,0,0,.12); margin-top:14px; }
+  .netcard .l { font-size:15px; font-weight:700; color:#202124; }
+  .netcard .v { font-size:19px; font-weight:700; color:#2E7D32; }
+  .savebar { padding:12px 14px 18px; }
+  .save { width:100%; height:50px; border-radius:12px; border:none; background:#1A237E; color:#fff;
+    font-size:16px; font-weight:600; display:flex; align-items:center; justify-content:center; gap:10px;
+    box-shadow:0 4px 10px rgba(26,35,126,.35); }
+</style>
+</head>
+<body>
+  <div class="appbar">New Sale Invoice</div>
+
+  <div class="body">
+    <div class="row">
+      <div class="fld"><label>Code</label><div class="box">00007</div></div>
+      <div class="fld"><label>Invoice No</label><div class="box">INV-0007</div></div>
+    </div>
+
+    <div class="row">
+      <div class="fld st" style="flex:1"><label>Date</label><div class="box">📅 &nbsp;25-Aug-2026</div></div>
+    </div>
+
+    <div class="fld" style="margin-bottom:12px">
+      <label>Customer *</label>
+      <div class="box" style="justify-content:space-between">Muhammad Ali <span style="opacity:.5">▾</span></div>
+    </div>
+
+    <div class="fld" style="margin-bottom:4px">
+      <label>Transporter</label>
+      <div class="box" style="justify-content:space-between">— &nbsp;<span style="opacity:.5">▾</span></div>
+    </div>
+
+    <div class="sec">Items</div>
+
+    <div class="itemcard">
+      <div class="itemhead">
+        <div class="fld"><label>Item 1</label><div class="box">POLYSTER CLOTH</div></div>
+        <span class="rm">⊖</span>
+      </div>
+      <div class="sub fld" style="margin-top:10px"><label>Detail / Description</label><div class="box" style="height:42px">Premium quality</div></div>
+      <div class="qtyrow">
+        <div class="fld"><label>Qty</label><div class="box">25</div></div>
+        <div class="fld"><label>Rate</label><div class="box">110.50</div></div>
+        <div class="fld"><label>Value</label><div class="box" style="color:#5f6368">2,762.50</div></div>
+      </div>
+    </div>
+
+    <button class="addbtn">＋ Add Item Row</button>
+
+    <div class="netcard">
+      <div class="l">Net Amount</div>
+      <div class="v">Rs 2,762.50</div>
+    </div>
+  </div>
+
+  <div class="savebar"><button class="save">💾&nbsp; Save Sale</button></div>
+</body>
+</html>

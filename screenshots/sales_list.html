@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,Arial,sans-serif; }
+  body { width:412px; height:892px; overflow:hidden; background:#F4F6FB; display:flex; flex-direction:column; position:relative; }
+  .appbar { background:#1A237E; color:#fff; padding:16px; font-size:18px; font-weight:600;
+    display:flex; align-items:center; gap:12px; }
+  .search { margin:12px; height:50px; background:#fff; border:1px solid #DADCE0; border-radius:10px;
+    display:flex; align-items:center; padding:0 14px; gap:10px; color:#80868B; }
+  .list { padding:0 12px; }
+  .inv { background:#fff; border-radius:14px; padding:14px 16px; margin-bottom:10px;
+    box-shadow:0 1.5px 5px rgba(0,0,0,.12); display:flex; justify-content:space-between; }
+  .inv .left { min-width:0; }
+  .inv .t1 { font-size:15px; font-weight:600; color:#202124; }
+  .inv .t2 { font-size:13px; color:#5f6368; margin-top:3px; }
+  .inv .right { text-align:right; display:flex; flex-direction:column; justify-content:center; }
+  .inv .amt { font-size:15px; font-weight:700; color:#2E7D32; white-space:nowrap; }
+  .inv .del { font-size:17px; opacity:.55; margin-top:6px; }
+  .fabrow { padding:6px 18px 24px; display:flex; justify-content:flex-end; }
+  .fab { height:48px; padding:0 18px; background:#1A237E; color:#fff; border-radius:26px;
+    display:flex; align-items:center; gap:8px; font-size:14.5px; font-weight:600;
+    box-shadow:0 6px 14px rgba(26,35,126,.45); }
+</style>
+</head>
+<body>
+  <div class="appbar">← &nbsp;Sales Invoices</div>
+
+  <div class="search">🔍&nbsp; Search…</div>
+
+  <div class="list">
+    <div class="inv">
+      <div class="left">
+        <div class="t1">INV-0006 • Muhammad Ali</div>
+        <div class="t2">Code 00006 • 20-Aug-2026</div>
+      </div>
+      <div class="right">
+        <div class="amt">Rs 1,650</div>
+        <div class="del">🗑</div>
+      </div>
+    </div>
+
+    <div class="inv">
+      <div class="left">
+        <div class="t1">INV-0005 • Ahsan Traders</div>
+        <div class="t2">Code 00005 • 19-Aug-2026</div>
+      </div>
+      <div class="right">
+        <div class="amt">Rs 12,400</div>
+        <div class="del">🗑</div>
+      </div>
+    </div>
+
+    <div class="inv">
+      <div class="left">
+        <div class="t1">INV-0004 • Bilal Store</div>
+        <div class="t2">Code 00004 • 18-Aug-2026</div>
+      </div>
+      <div class="right">
+        <div class="amt">Rs 7,250</div>
+        <div class="del">🗑</div>
+      </div>
+    </div>
+
+    <div class="inv">
+      <div class="left">
+        <div class="t1">INV-0003 • Muhammad Ali</div>
+        <div class="t2">Code 00003 • 17-Aug-2026</div>
+      </div>
+      <div class="right">
+        <div class="amt">Rs 9,800</div>
+        <div class="del">🗑</div>
+      </div>
+    </div>
+
+    <div class="inv">
+      <div class="left">
+        <div class="t1">INV-0002 • Ahsan Traders</div>
+        <div class="t2">Code 00002 • 16-Aug-2026</div>
+      </div>
+      <div class="right">
+        <div class="amt">Rs 22,000</div>
+        <div class="del">🗑</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fabrow"><div class="fab">＋&nbsp; New Sale</div></div>
+</body>
+</html>

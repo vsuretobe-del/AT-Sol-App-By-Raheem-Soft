@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,Arial,sans-serif; }
+  body { width:412px; height:892px; overflow:hidden; background:#F4F6FB; display:flex; flex-direction:column; }
+  .appbar { background:#1A237E; color:#fff; padding:14px 16px 12px; display:flex;
+    align-items:flex-start; justify-content:space-between; }
+  .appbar .titles h2 { font-size:17px; font-weight:700; }
+  .appbar .titles span { font-size:11.5px; color:rgba(255,255,255,.7); }
+  .appbar .actions { display:flex; gap:4px; font-size:19px; opacity:.9; padding-top:3px; }
+  .scroll { flex:1; overflow:hidden; padding-bottom:6px; }
+  .stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:14px 12px 0; }
+  .stat { border-radius:14px; padding:11px 12px; color:#fff; height:76px;
+    display:flex; flex-direction:column; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,.18); }
+  .stat .lbl { font-size:11px; opacity:.8; display:flex; align-items:center; gap:5px; }
+  .stat .val { font-size:18px; font-weight:700; margin-top:5px; white-space:nowrap; }
+  .sec { font-size:12.5px; font-weight:700; color:#757575; letter-spacing:.8px;
+    padding:18px 16px 8px; text-transform:uppercase; }
+  .grid { display:grid; grid-template-columns:1fr 1fr 1fr; row-gap:14px; padding:2px 8px 0; }
+  .mod { display:flex; flex-direction:column; align-items:center; gap:7px; cursor:pointer; }
+  .mod .cir { width:50px; height:50px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:23px; }
+  .mod span { font-size:11.5px; font-weight:600; color:#202124; text-align:center; line-height:1.15; }
+  .footer { text-align:center; font-size:12px; color:#9E9E9E; padding:16px 0 10px; }
+</style>
+</head>
+<body>
+  <div class="appbar">
+    <div class="titles">
+      <h2>Ahsan Traders</h2>
+      <span>Administrator • admin</span>
+    </div>
+    <div class="actions"><span>🔑</span><span>👥</span><span>⏻</span></div>
+  </div>
+
+  <div class="scroll">
+    <div class="stats">
+      <div class="stat" style="background:#2E7D32"><div class="lbl">📅 Today's Sales</div><div class="val">Rs 45,500</div></div>
+      <div class="stat" style="background:#1565C0"><div class="lbl">🗓 Month Sales</div><div class="val">Rs 812,300</div></div>
+      <div class="stat" style="background:#E65100"><div class="lbl">🛍 Month Purchases</div><div class="val">Rs 240</div></div>
+      <div class="stat" style="background:#6A1B9A"><div class="lbl">🧾 Invoices</div><div class="val">6</div></div>
+      <div class="stat" style="background:#4527A0"><div class="lbl">👛 Vouchers</div><div class="val">18</div></div>
+      <div class="stat" style="background:#00838F"><div class="lbl">👥 Customers</div><div class="val">3</div></div>
+      <div class="stat" style="background:#37474F"><div class="lbl">🚚 Suppliers</div><div class="val">6</div></div>
+      <div class="stat" style="background:#9E9D24"><div class="lbl">📦 Items</div><div class="val">9</div></div>
+    </div>
+
+    <div class="sec">Transactions</div>
+    <div class="grid">
+      <div class="mod"><div class="cir" style="background:#1565C01F">🧮</div><span>New Sale</span></div>
+      <div class="mod"><div class="cir" style="background:#2E7D321F">🧾</div><span>Sales</span></div>
+      <div class="mod"><div class="cir" style="background:#6A1B9A1F">↩️</div><span>Sales Returns</span></div>
+      <div class="mod"><div class="cir" style="background:#E651001F">🛒</div><span>Purchases</span></div>
+      <div class="mod"><div class="cir" style="background:#00838F1F">📋</div><span>Purchase Orders</span></div>
+      <div class="mod"><div class="cir" style="background:#AD14571F">📤</div><span>Purchase Returns</span></div>
+      <div class="mod"><div class="cir" style="background:#4527A01F">👛</div><span>Vouchers</span></div>
+    </div>
+
+    <div class="sec">Definitions</div>
+    <div class="grid">
+      <div class="mod"><div class="cir" style="background:#2835931F">👤</div><span>Customers</span></div>
+      <div class="mod"><div class="cir" style="background:#37474F1F">🚚</div><span>Suppliers</span></div>
+      <div class="mod"><div class="cir" style="background:#00695C1F">🏪</div><span>Dealers</span></div>
+      <div class="mod"><div class="cir" style="background:#9E9D241F">📦</div><span>Items</span></div>
+      <div class="mod"><div class="cir" style="background:#8D6E631F">🏷️</div><span>Item Groups</span></div>
+      <div class="mod"><div class="cir" style="background:#4E342E1F">🏭</div><span>Godowns</span></div>
+    </div>
+
+    <div class="sec">Reports</div>
+    <div class="grid">
+      <div class="mod"><div class="cir" style="background:#4527A01F">📖</div><span>Account Ledger</span></div>
+      <div class="mod"><div class="cir" style="background:#00695C1F">⚖️</div><span>Party Balances</span></div>
+      <div class="mod"><div class="cir" style="background:#EF6C001F">📊</div><span>Stock Position</span></div>
+    </div>
+    <div class="footer">AT Sol Mobile v1.0</div>
+  </div>
+</body>
+</html>
