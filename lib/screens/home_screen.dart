@@ -19,8 +19,7 @@ class _Module {
   final IconData icon;
   final Color color;
   final WidgetBuilder builder;
-  final bool adminOnly;
-  const _Module(this.title, this.icon, this.color, this.builder, {this.adminOnly = false});
+  const _Module(this.title, this.icon, this.color, this.builder);
 }
 
 class HomeScreen extends StatefulWidget {
