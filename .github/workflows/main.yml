@@ -1,0 +1,69 @@
+name: Build Android APK + Windows EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Create Flutter project scaffolding
+        run: flutter create . --platforms android --org com.ahsantraders --project-name atsol_mobile
+
+      - name: Configure Android manifest
+        run: |
+          M=android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.INTERNET' $M || \
+            sed -i 's|<application|<uses-permission android:name="android.permission.INTERNET"/><application|' $M
+          sed -i 's|android:label="atsol_mobile"|android:label="AT Sol"|' $M
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run analyzer
+        run: flutter analyze --no-fatal-infos
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AT-Sol-Android-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Create Flutter project scaffolding
+        run: flutter create . --platforms windows --org com.ahsantraders --project-name atsol_mobile
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build release EXE
+        run: flutter build windows --release
+
+      - name: Zip portable app
+        shell: pwsh
+        run: Compress-Archive -Path "build/windows/x64/runner/Release/*" -DestinationPath "AT-Sol-Windows.zip"
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AT-Sol-Windows-Desktop
+          path: AT-Sol-Windows.zip
