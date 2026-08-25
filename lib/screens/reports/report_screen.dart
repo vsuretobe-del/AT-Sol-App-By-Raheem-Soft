@@ -210,7 +210,7 @@ class _ReportScreenState extends State<ReportScreen> {
                                         child: Row(children: [
                                           Expanded(flex: 2, child: Text(
                                               e.key.replaceAll('_', ' ').toUpperCase(),
-                                              style: TextStyle(fontSize: 11, color: Colors.grey.shade600)))),
+                                              style: TextStyle(fontSize: 11, color: Colors.grey.shade600))),
                                           Expanded(flex: 3, child: _valueCell(e.key, '${e.value}')),
                                         ]),
                                       ),
