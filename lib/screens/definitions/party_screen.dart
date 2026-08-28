@@ -67,71 +67,88 @@ class _PartyScreenState extends State<PartyScreen> {
     final mobile = TextEditingController();
     final address = TextEditingController();
     final credit = TextEditingController();
+    bool busy = false;
 
     final saved = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      builder: (ctx) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(18),
-          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-            Text('Add ${widget.kind.title.replaceAll('s', '')}',
-                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 14),
-            TextFormField(controller: name, decoration: const InputDecoration(labelText: 'Name *')),
-            const SizedBox(height: 10),
-            Row(children: [
-              Expanded(child: TextFormField(controller: code, decoration: const InputDecoration(labelText: 'Code'))),
-              const SizedBox(width: 8),
-              Expanded(child: TextFormField(controller: abbr, decoration: const InputDecoration(labelText: 'Abbr'))),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setSheet) => Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(18),
+            child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+              Text('Add ${widget.kind.title.replaceAll('s', '')}',
+                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 14),
+              TextFormField(controller: name, decoration: const InputDecoration(labelText: 'Name *'), readOnly: busy),
+              const SizedBox(height: 10),
+              Row(children: [
+                Expanded(child: TextFormField(controller: code, decoration: const InputDecoration(labelText: 'Code'), readOnly: busy)),
+                const SizedBox(width: 8),
+                Expanded(child: TextFormField(controller: abbr, decoration: const InputDecoration(labelText: 'Abbr'), readOnly: busy)),
+              ]),
+              const SizedBox(height: 10),
+              TextFormField(controller: contact, decoration: const InputDecoration(labelText: 'Contact Person'), readOnly: busy),
+              const SizedBox(height: 10),
+              Row(children: [
+                Expanded(child: TextFormField(controller: phone, decoration: const InputDecoration(labelText: 'Phone'), readOnly: busy)),
+                const SizedBox(width: 8),
+                Expanded(child: TextFormField(controller: mobile, decoration: const InputDecoration(labelText: 'Mobile'), readOnly: busy)),
+              ]),
+              const SizedBox(height: 10),
+              TextFormField(controller: address, decoration: const InputDecoration(labelText: 'Address'), readOnly: busy),
+              const SizedBox(height: 10),
+              TextFormField(controller: credit, keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(labelText: 'Credit Limit'), readOnly: busy),
+              const SizedBox(height: 16),
+              busy
+                  ? const Center(child: CircularProgressIndicator(color: AppTheme.brand))
+                  : FilledButton.icon(
+                      icon: const Icon(Icons.save_outlined),
+                      label: const Text('Save'),
+                      onPressed: () async {
+                        if (name.text.trim().isEmpty) {
+                          showSnack(ctx, 'Name is required', error: true);
+                          return;
+                        }
+                        setSheet(() => busy = true);
+                        final r = await ApiService.instance.post(widget.kind.endpoint, {
+                          'name': name.text.trim(),
+                          'code': code.text.trim(),
+                          'abbr': abbr.text.trim(),
+                          'contact_person': contact.text.trim(),
+                          'office_phone': phone.text.trim(),
+                          'mobile_no': mobile.text.trim(),
+                          'office_address1': address.text.trim(),
+                          'credit_limit': credit.text.trim(),
+                        });
+                        setSheet(() => busy = false);
+                        if (ctx.mounted) {
+                          showSnack(ctx, r.ok ? '${widget.kind.title.replaceAll('s', '')} saved' : (r.message ?? 'Save failed'),
+                              error: !r.ok);
+                          if (r.ok) Navigator.pop(ctx, true);
+                        }
+                      },
+                    ),
             ]),
-            const SizedBox(height: 10),
-            TextFormField(controller: contact, decoration: const InputDecoration(labelText: 'Contact Person')),
-            const SizedBox(height: 10),
-            Row(children: [
-              Expanded(child: TextFormField(controller: phone, decoration: const InputDecoration(labelText: 'Phone'))),
-              const SizedBox(width: 8),
-              Expanded(child: TextFormField(controller: mobile, decoration: const InputDecoration(labelText: 'Mobile'))),
-            ]),
-            const SizedBox(height: 10),
-            TextFormField(controller: address, decoration: const InputDecoration(labelText: 'Address')),
-            const SizedBox(height: 10),
-            TextFormField(controller: credit, keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Credit Limit')),
-            const SizedBox(height: 16),
-            FilledButton.icon(
-              icon: const Icon(Icons.save_outlined),
-              label: const Text('Save'),
-              onPressed: () async {
-                if (name.text.trim().isEmpty) {
-                  showSnack(ctx, 'Name is required', error: true);
-                  return;
-                }
-                final r = await ApiService.instance.post(widget.kind.endpoint, {
-                  'name': name.text.trim(),
-                  'code': code.text.trim(),
-                  'abbr': abbr.text.trim(),
-                  'contact_person': contact.text.trim(),
-                  'office_phone': phone.text.trim(),
-                  'mobile_no': mobile.text.trim(),
-                  'office_address1': address.text.trim(),
-                  'credit_limit': credit.text.trim(),
-                });
-                if (ctx.mounted) {
-                  showSnack(ctx, r.ok ? '${widget.kind.title.replaceAll('s', '')} saved' : (r.message ?? 'Save failed'),
-                      error: !r.ok);
-                  if (r.ok) Navigator.pop(ctx, true);
-                }
-              },
-            ),
-          ]),
+          ),
         ),
       ),
     );
     if (saved == true) _load();
+  }
+
+  Future<void> _delete(Map<String, dynamic> p) async {
+    final entityName = widget.kind.title.replaceAll('s', '');
+    if (!await confirmDelete(context, entityName.toLowerCase())) return;
+    final r = await ApiService.instance.delBody(widget.kind.endpoint, {'id': p['id']});
+    if (mounted) {
+      showSnack(context, r.ok ? 'Deleted successfully' : (r.message ?? 'Delete failed'), error: !r.ok);
+      if (r.ok) _load();
+    }
   }
 
   Future<void> _openDetail(Map<String, dynamic> p) {
@@ -205,7 +222,10 @@ class _PartyScreenState extends State<PartyScreen> {
                                 if ('${p['code'] ?? ''}'.isNotEmpty) 'Code ${p['code']}',
                                 if ('${p['mobile_no'] ?? ''}'.isNotEmpty) '${p['mobile_no']}',
                               ].join('  •  ')),
-                              trailing: const Icon(Icons.chevron_right),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.delete_outline, color: Colors.red),
+                                onPressed: () => _delete(p),
+                              ),
                             ),
                           );
                         },
