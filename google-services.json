@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "635136207618",
+    "project_id": "at-sol-by-raheem-soft",
+    "storage_bucket": "at-sol-by-raheem-soft.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635136207618:android:886a891c372f13a1fff01b",
+        "android_client_info": {
+          "package_name": "RaheemSoft.online.ATSol"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ-ax79mx_EmPqmn-OxVa6Qo0vXGy-u3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
